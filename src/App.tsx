@@ -1,34 +1,62 @@
-import { useState } from "react";
-import reactLogo from "@/assets/react.svg";
-import viteLogo from "@/assets/vite.svg";
+import React from 'react';
+import type { MenuProps } from 'antd';
+import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { PasswordInput, Calendar, AdvancedEffects } from './pages';
 
-function App() {
-  const [count, setCount] = useState(0);
+const { Header, Content, Sider } = Layout;
+
+const items: MenuProps['items'] = [
+	{
+		key: `passwordInput`,
+		label: `Password Input`,
+	},
+	{
+		key: `calendar`,
+		label: `Calendar`,
+	},
+	{
+		key: `advancedEffects`,
+		label: `AdvancedEffects`,
+	},
+];
+
+const App: React.FC = () => {
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
 
   return (
-    <>
-      <div className="bg-red-500">
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Layout>
+      <Header style={{ display: 'flex', alignItems: 'center' }}>
+        <h1 className='text-white'>AHA EXAM</h1>
+
+      </Header>
+      <Layout>
+        <Sider width={200} style={{ background: colorBgContainer }}>
+          <Menu
+            mode="inline"
+            defaultSelectedKeys={['passwordInput']}
+            style={{ height: '100%', borderRight: 0 }}
+            items={items}
+          />
+        </Sider>
+        <Layout style={{ padding: '0 24px 24px' }}>
+
+          <Content
+            style={{
+              padding: 24,
+              marginTop: 24,
+              minHeight: 'calc(100vh - 7rem)',
+              background: colorBgContainer,
+              borderRadius: borderRadiusLG,
+            }}
+          >
+            Content
+          </Content>
+        </Layout>
+      </Layout>
+    </Layout>
   );
-}
+};
 
 export default App;
